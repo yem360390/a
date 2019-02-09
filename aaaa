@@ -1,0 +1,31 @@
+function 前にすすむ2() {
+    pins.servoWritePin(AnalogPin.P1, 0)
+    pins.servoWritePin(AnalogPin.P2, 180)
+}
+function 止まる2() {
+    pins.servoWritePin(AnalogPin.P1, 90)
+    pins.servoWritePin(AnalogPin.P2, 90)
+}
+function 右にまがる2() {
+    pins.servoWritePin(AnalogPin.P1, 90)
+    pins.servoWritePin(AnalogPin.P2, 180)
+}
+input.onButtonPressed(Button.B, function () {
+    for (let i = 0; i < 4; i++) {
+        前にすすむ2()
+        basic.pause(1000)
+        右にまがる2()
+        basic.pause(500)
+    }
+    止まる2()
+})
+basic.showIcon(IconNames.Happy)
+basic.forever(function () {
+    if (input.lightLevel() > 150) {
+        led.plot(2, 0)
+        前にすすむ2()
+        basic.pause(1000)
+        止まる2()
+        led.unplot(2, 0)
+    }
+})
